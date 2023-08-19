@@ -1,20 +1,14 @@
 import { MobilettoOrmRepository } from "mobiletto-orm";
-import {
-    DestinationAssetType,
-    MediaOperationType,
-    MediaProfileType,
-    MediaPropertyType,
-    MediaType,
-} from "yuebing-model";
+import { MediaOperationType, MediaProfileType, MediaPropertyType, MediaType } from "yuebing-model";
 import { ParsedProfile, parseProfile } from "./profile.js";
 
 export type MediaPlugin = {
-    profileCommandArgs: (
-        asset: DestinationAssetType,
+    applyProfile: (
+        downloaded: string,
         driver: MediaDriver,
         profile: ParsedProfile,
         outDir: string,
-    ) => Promise<string[]>;
+    ) => Promise<ApplyProfileResponse>;
 };
 
 export type MediaDriver = {
@@ -49,12 +43,16 @@ export const registerMediaDriver = async (
     };
 };
 
-export const profileCommandArguments = async (
-    asset: DestinationAssetType,
+export type ApplyProfileResponse = {
+    args?: string[];
+    done?: boolean;
+};
+
+export const applyProfile = async (
+    downloaded: string,
     profile: ParsedProfile,
-    existingAssets: DestinationAssetType[],
     outDir: string,
-): Promise<string[]> => {
+): Promise<ApplyProfileResponse> => {
     const driver = MEDIA_DRIVERS[profile.media];
-    return driver.plugin.profileCommandArgs(asset, driver, profile, outDir);
+    return driver.plugin.applyProfile(downloaded, driver, profile, outDir);
 };
