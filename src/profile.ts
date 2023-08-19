@@ -7,31 +7,32 @@ export type ParsedProfile = MediaProfileType & {
 };
 
 export const parseProfile = async (
-    mediaProfileRepo: MobilettoOrmRepository<MediaProfileType>,
-    mediaOperationRepo: MobilettoOrmRepository<MediaOperationType>,
-    profile: MediaProfileType,
+    profileRepo: MobilettoOrmRepository<MediaProfileType>,
+    opRepo: MobilettoOrmRepository<MediaOperationType>,
+    profile: MediaProfileType | string,
     profileCache?: Record<string, ParsedProfile>,
 ): Promise<ParsedProfile> => {
-    if (profileCache && profileCache[profile.name]) return profileCache[profile.name];
+    const prof: MediaProfileType = typeof profile === "string" ? await profileRepo.findById(profile) : profile;
+    if (profileCache && profileCache[profile.name]) return profileCache[prof.name];
 
     let fromProfile: MediaProfileType | null = null;
-    if (profile.from) {
-        const fromProfileObj = await mediaProfileRepo.findById(profile.from);
-        fromProfile = await parseProfile(mediaProfileRepo, mediaOperationRepo, fromProfileObj);
+    if (prof.from) {
+        const fromProfileObj = await profileRepo.findById(prof.from);
+        fromProfile = await parseProfile(profileRepo, opRepo, fromProfileObj);
     }
     const parsed: MediaProfileType = Object.assign({}, fromProfile ? fromProfile : {}, profile);
 
-    if (profile.subProfiles && profile.subProfiles.length > 0) {
+    if (prof.subProfiles && prof.subProfiles.length > 0) {
         parsed.subProfileObjects = [];
-        for (const subProf of profile.subProfiles) {
-            const subProfObject = await mediaProfileRepo.findById(subProf);
-            parsed.subProfileObjects.push(await parseProfile(mediaProfileRepo, mediaOperationRepo, subProfObject));
+        for (const subProf of prof.subProfiles) {
+            const subProfObject = await profileRepo.findById(subProf);
+            parsed.subProfileObjects.push(await parseProfile(profileRepo, opRepo, subProfObject));
         }
     }
 
-    if (profile.operation) {
-        parsed.operationObject = mediaOperationRepo.findById(profile.operation);
+    if (prof.operation) {
+        parsed.operationObject = opRepo.findById(prof.operation);
     }
-    if (profileCache) profileCache[profile.name] = parsed;
+    if (profileCache) profileCache[prof.name] = parsed;
     return parsed;
 };
