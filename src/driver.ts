@@ -9,8 +9,12 @@ import { MobilettoOrmRepository } from "mobiletto-orm";
 import { ParsedProfile, parseProfile } from "./profile";
 
 export type MediaPlugin = {
-    initialize: (profile: MediaProfileType) => void;
-    transform: (asset: DestinationAssetType, profile: MediaProfileType) => DestinationAssetType;
+    transform: (
+        asset: DestinationAssetType,
+        driver: MediaDriver,
+        profile: ParsedProfile,
+        outDir: string,
+    ) => DestinationAssetType;
 };
 
 export type MediaDriver = {
