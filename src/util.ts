@@ -12,4 +12,5 @@ export const fileExtWithoutDot = (path?: string) => {
     return lastDot === -1 || lastDot === path.length - 1 ? "" : path.substring(lastDot + 1);
 };
 
-export const assetPath = (path: string) => path.substring(path.indexOf(ASSET_SEP));
+export const assetPath = (path: string) => path.substring(path.indexOf(ASSET_SEP) + 1);
+export const assetSource = (path: string) => path.substring(0, path.indexOf(ASSET_SEP));
