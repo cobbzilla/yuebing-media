@@ -15,3 +15,4 @@ export type ApplyProfileResponse = {
     done?: boolean;
 };
 export declare const applyProfile: (downloaded: string, profile: ParsedProfile, outDir: string) => Promise<ApplyProfileResponse>;
+export type MediaOperationFunc = (infile: string, profile: ParsedProfile, outfile: string) => Promise<ApplyProfileResponse>;

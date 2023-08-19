@@ -56,3 +56,9 @@ export const applyProfile = async (
     const driver = MEDIA_DRIVERS[profile.media];
     return driver.plugin.applyProfile(downloaded, driver, profile, outDir);
 };
+
+export type MediaOperationFunc = (
+    infile: string,
+    profile: ParsedProfile,
+    outfile: string,
+) => Promise<ApplyProfileResponse>;
