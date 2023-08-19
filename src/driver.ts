@@ -45,7 +45,7 @@ export const registerMediaDriver = async (
 
 export type ApplyProfileResponse = {
     args?: string[];
-    done?: boolean;
+    analysis?: object | string;
 };
 
 export const applyProfile = async (

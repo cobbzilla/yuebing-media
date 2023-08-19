@@ -12,7 +12,7 @@ export type MediaDriver = {
 export declare const registerMediaDriver: (media: MediaType, plugin: MediaPlugin, profileRepo: MobilettoOrmRepository<MediaProfileType>, operationRepo: MobilettoOrmRepository<MediaOperationType>, propRepo: MobilettoOrmRepository<MediaPropertyType>) => Promise<void>;
 export type ApplyProfileResponse = {
     args?: string[];
-    done?: boolean;
+    analysis?: object | string;
 };
 export declare const applyProfile: (downloaded: string, profile: ParsedProfile, outDir: string) => Promise<ApplyProfileResponse>;
 export type MediaOperationFunc = (infile: string, profile: ParsedProfile, outfile: string) => Promise<ApplyProfileResponse>;
