@@ -9,7 +9,7 @@ import {
 import { ParsedProfile, parseProfile } from "./profile.js";
 
 export type MediaPlugin = {
-    transform: (
+    profileCommandArgs: (
         asset: DestinationAssetType,
         driver: MediaDriver,
         profile: ParsedProfile,
@@ -49,12 +49,12 @@ export const registerMediaDriver = async (
     };
 };
 
-export const processProfile = async (
+export const profileCommandArguments = async (
     asset: DestinationAssetType,
     profile: ParsedProfile,
     existingAssets: DestinationAssetType[],
     outDir: string,
 ): Promise<string[]> => {
     const driver = MEDIA_DRIVERS[profile.media];
-    return driver.plugin.transform(asset, driver, profile, outDir);
+    return driver.plugin.profileCommandArgs(asset, driver, profile, outDir);
 };
