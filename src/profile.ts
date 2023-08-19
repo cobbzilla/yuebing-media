@@ -6,33 +6,32 @@ export type ParsedProfile = MediaProfileType & {
     operationObject?: MediaOperationType;
 };
 
-const PARSED_PROFILES: Record<string, ParsedProfile> = {};
-
 export const parseProfile = async (
     mediaProfileRepo: MobilettoOrmRepository<MediaProfileType>,
     mediaOperationRepo: MobilettoOrmRepository<MediaOperationType>,
     profile: MediaProfileType,
+    profileCache?: Record<string, ParsedProfile>,
 ): Promise<ParsedProfile> => {
-    if (!PARSED_PROFILES[profile.name]) {
-        let fromProfile: MediaProfileType | null = null;
-        if (profile.from) {
-            const fromProfileObj = await mediaProfileRepo.findById(profile.from);
-            fromProfile = await parseProfile(mediaProfileRepo, mediaOperationRepo, fromProfileObj);
-        }
-        const parsed: MediaProfileType = Object.assign({}, fromProfile ? fromProfile : {}, profile);
+    if (profileCache && profileCache[profile.name]) return profileCache[profile.name];
 
-        if (profile.subProfiles && profile.subProfiles.length > 0) {
-            parsed.subProfileObjects = [];
-            for (const subProf of profile.subProfiles) {
-                const subProfObject = await mediaProfileRepo.findById(subProf);
-                parsed.subProfileObjects.push(await parseProfile(mediaProfileRepo, mediaOperationRepo, subProfObject));
-            }
-        }
-
-        if (profile.operation) {
-            parsed.operationObject = mediaOperationRepo.findById(profile.operation);
-        }
-        PARSED_PROFILES[profile.name] = parsed;
+    let fromProfile: MediaProfileType | null = null;
+    if (profile.from) {
+        const fromProfileObj = await mediaProfileRepo.findById(profile.from);
+        fromProfile = await parseProfile(mediaProfileRepo, mediaOperationRepo, fromProfileObj);
     }
-    return PARSED_PROFILES[profile.name];
+    const parsed: MediaProfileType = Object.assign({}, fromProfile ? fromProfile : {}, profile);
+
+    if (profile.subProfiles && profile.subProfiles.length > 0) {
+        parsed.subProfileObjects = [];
+        for (const subProf of profile.subProfiles) {
+            const subProfObject = await mediaProfileRepo.findById(subProf);
+            parsed.subProfileObjects.push(await parseProfile(mediaProfileRepo, mediaOperationRepo, subProfObject));
+        }
+    }
+
+    if (profile.operation) {
+        parsed.operationObject = mediaOperationRepo.findById(profile.operation);
+    }
+    if (profileCache) profileCache[profile.name] = parsed;
+    return parsed;
 };
