@@ -3,7 +3,7 @@ import { MobilettoOrmTypeDef } from "mobiletto-orm";
 
 export type ApplyProfileResponse = {
     args?: string[];
-    analysis?: object | string;
+    analysis?: object | string | number | boolean;
 };
 
 export type MediaPlugin = {
@@ -16,7 +16,7 @@ export type MediaPlugin = {
     operationConfigType: (operation: MediaOperationType) => MobilettoOrmTypeDef;
 };
 
-export type MediaProperties = Record<string, object | string | number>;
+export type MediaProperties = Record<string, object | string | number | boolean>;
 
 export type MediaDriver = {
     operations: MediaOperationType[];
