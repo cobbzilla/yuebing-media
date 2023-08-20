@@ -30,8 +30,8 @@ devDependencies:
     specifier: ^8.8.0
     version: 8.8.0(eslint@8.44.0)
   mobiletto-orm:
-    specifier: ^2.2.39
-    version: 2.2.39
+    specifier: ^2.2.40
+    version: 2.2.40
   mobiletto-orm-typedef:
     specifier: ^2.4.5
     version: 2.4.5
@@ -48,8 +48,8 @@ devDependencies:
     specifier: ^5.1.6
     version: 5.1.6
   yuebing-model:
-    specifier: ^2.7.13
-    version: 2.7.13
+    specifier: ^2.7.14
+    version: 2.7.14
 
 packages:
 
@@ -981,8 +981,8 @@ packages:
       uuid: 9.0.0
     dev: true
 
-  /mobiletto-orm@2.2.39:
-    resolution: {integrity: sha512-WHUbDtf4va7Xeg7KmwLSfHZMS8Y4vOfOXw2rJF7DNMlAjCAlAEwO7X1wqkQOouZIxklj65EkykRQ8P4N3Az22Q==}
+  /mobiletto-orm@2.2.40:
+    resolution: {integrity: sha512-VVte4W9h1lhoLCtWwtc7x/efrIBOlpYJDMZKZpPsn377ipTwV334iDOR2Z6Ur02Qyn6MTDL3b+dG5zTyXztoHQ==}
     dev: true
 
   /mocha@10.2.0:
@@ -1381,6 +1381,6 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /yuebing-model@2.7.13:
-    resolution: {integrity: sha512-xcaw1+O6kVhv6BVFsdrpKRWaQIXCcx2ZHURw+jpqMQ53nNsYqYSukWg2OIbhfvT6c4wBUvS2I6ZUenm5f823Ew==}
+  /yuebing-model@2.7.14:
+    resolution: {integrity: sha512-7lPcMZcVqBov5WQQnlByefJlxLK3TEv0BjuXQjAH2gSZXdLYZf9Viuv1aTFMoYKCSx4ljXVzDedprERVMVCJHg==}
     dev: true
