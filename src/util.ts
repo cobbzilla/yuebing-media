@@ -1,4 +1,4 @@
-export const ASSET_SEP = ">";
+export const ASSET_SEP = "~";
 
 export const fileExtWithDot = (path?: string) => {
     if (!path || path.length === 0) return "";
