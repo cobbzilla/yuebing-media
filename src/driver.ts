@@ -1,4 +1,4 @@
-import { MobilettoOrmRepository } from "mobiletto-orm";
+import { basename, MobilettoOrmRepository, sha } from "mobiletto-orm";
 import { MediaOperationType, MediaProfileType, MediaPropertyType, MediaType } from "yuebing-model";
 import { ApplyProfileResponse, MediaDriver, MediaPlugin, ParsedProfile } from "./type.js";
 
@@ -82,3 +82,8 @@ export const applyProfile = async (
     const driver = MEDIA_DRIVERS[media];
     return driver.plugin.applyProfile(downloaded, profile, driver.props, outDir);
 };
+
+const ASSET_PATH_PREFIX = "ybAssets";
+
+export const destinationPath = (sourceAsset: string, media: string, profile: string, filename: string): string =>
+    `${ASSET_PATH_PREFIX}/${basename(sourceAsset)}/${sha(sourceAsset)}/${media}/${profile}/${basename(filename)}`;
