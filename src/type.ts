@@ -36,5 +36,6 @@ export type ParsedProfile = MediaProfileType & {
 export type MediaOperationFunc = (
     infile: string,
     profile: ParsedProfile,
+    props: MediaProperties,
     outfile: string,
 ) => Promise<ApplyProfileResponse>;

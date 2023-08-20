@@ -21,4 +21,4 @@ export type ParsedProfile = MediaProfileType & {
     operationConfigType?: MobilettoOrmTypeDef;
     operationConfig?: MediaOperationConfig;
 };
-export type MediaOperationFunc = (infile: string, profile: ParsedProfile, outfile: string) => Promise<ApplyProfileResponse>;
+export type MediaOperationFunc = (infile: string, profile: ParsedProfile, props: MediaProperties, outfile: string) => Promise<ApplyProfileResponse>;
