@@ -14,7 +14,7 @@ export type MediaDriver = {
     props: MediaProperties;
     plugin: MediaPlugin;
 };
-export type MediaOperationConfig = Record<string, string | number>;
+export type MediaOperationConfig = Record<string, string | number | boolean>;
 export type ParsedProfile = MediaProfileType & {
     subProfileObjects?: ParsedProfile[];
     operationObject?: MediaOperationType;
