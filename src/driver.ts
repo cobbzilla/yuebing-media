@@ -58,7 +58,7 @@ const parseProfile = async (
 
     if (prof.operation) {
         const op = operations.find((op) => op.name === prof.operation);
-        if (op && op.configType) {
+        if (op) {
             parsed.operationObject = op;
             parsed.operationConfigType = plugin.operationConfigType(op);
             parsed.operationConfig = prof.operationConfig ? JSON.parse(prof.operationConfig) : undefined;
