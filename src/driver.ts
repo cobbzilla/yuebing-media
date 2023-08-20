@@ -64,6 +64,9 @@ const parseProfile = async (
             parsed.operationConfig = prof.operationConfig ? JSON.parse(prof.operationConfig) : undefined;
         }
     }
+    if (prof.additionalAssets && prof.additionalAssets.length > 0) {
+        prof.additionalAssetsRegexes = prof.additionalAssets.map((re: string) => new RegExp(re));
+    }
     return parsed;
 };
 

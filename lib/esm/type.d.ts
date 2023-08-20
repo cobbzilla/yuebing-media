@@ -17,6 +17,7 @@ export type MediaDriver = {
 export type MediaOperationConfig = Record<string, string | number | boolean>;
 export type ParsedProfile = MediaProfileType & {
     subProfileObjects?: ParsedProfile[];
+    additionalAssetsRegexes?: RegExp[];
     operationObject?: MediaOperationType;
     operationConfigType?: MobilettoOrmTypeDef;
     operationConfig?: MediaOperationConfig;
