@@ -48,8 +48,8 @@ devDependencies:
     specifier: ^5.1.6
     version: 5.1.6
   yuebing-model:
-    specifier: ^2.7.12
-    version: 2.7.12
+    specifier: ^2.7.13
+    version: 2.7.13
 
 packages:
 
@@ -1381,6 +1381,6 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /yuebing-model@2.7.12:
-    resolution: {integrity: sha512-9xihWT3MJSwhK/+0B0iEeo5odHzJxPXQsGFKb3z+DcG3uw0HdPR2jIXAwuidoqwjgXl02jG2t+W52N7iH+tsYg==}
+  /yuebing-model@2.7.13:
+    resolution: {integrity: sha512-xcaw1+O6kVhv6BVFsdrpKRWaQIXCcx2ZHURw+jpqMQ53nNsYqYSukWg2OIbhfvT6c4wBUvS2I6ZUenm5f823Ew==}
     dev: true
