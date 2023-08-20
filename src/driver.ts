@@ -1,23 +1,11 @@
 import { MobilettoOrmRepository } from "mobiletto-orm";
 import { MediaOperationType, MediaProfileType, MediaPropertyType, MediaType } from "yuebing-model";
-import { ParsedProfile, parseProfile } from "./profile.js";
-
-export type MediaPlugin = {
-    applyProfile: (
-        downloaded: string,
-        driver: MediaDriver,
-        profile: ParsedProfile,
-        outDir: string,
-    ) => Promise<ApplyProfileResponse>;
-};
-
-export type MediaDriver = {
-    profiles: Record<string, ParsedProfile>;
-    props: Record<string, object | string | number>;
-    plugin: MediaPlugin;
-};
+import { ApplyProfileResponse, MediaDriver, MediaPlugin, ParsedProfile } from "./type.js";
+import { parseProfile } from "./profile.js";
 
 const MEDIA_DRIVERS: Record<string, MediaDriver> = {};
+
+const MEDIA_PROFILES: Record<string, ParsedProfile> = {};
 
 export const registerMediaDriver = async (
     media: MediaType,
@@ -26,39 +14,33 @@ export const registerMediaDriver = async (
     operationRepo: MobilettoOrmRepository<MediaOperationType>,
     propRepo: MobilettoOrmRepository<MediaPropertyType>,
 ) => {
-    const profiles = await profileRepo.safeFindBy("media", media.name);
-    const parsedProfiles: ParsedProfile[] = [];
+    const operations = (await operationRepo.safeFindBy("media", media.name)) as MediaOperationType[];
+    const profiles = (await profileRepo.safeFindBy("media", media.name)) as MediaProfileType[];
     for (const profile of profiles) {
-        parsedProfiles.push(await parseProfile(profileRepo, operationRepo, profile));
+        const parsed = await parseProfile(profileRepo, operations, profile, plugin);
+        if (parsed) {
+            MEDIA_PROFILES[parsed.name] = parsed;
+        }
     }
-    const props = await propRepo.safeFindBy("media", media.name);
+    const props = (await propRepo.safeFindBy("media", media.name)) as MediaPropertyType[];
     const parsedProps: Record<string, object | string | number> = {};
     for (const prop of props) {
         parsedProps[prop.name] = prop.value ? JSON.parse(prop.value) : null;
     }
     MEDIA_DRIVERS[media.name] = {
-        profiles: parsedProfiles,
+        operations,
         props: parsedProps,
         plugin,
     };
 };
 
-export type ApplyProfileResponse = {
-    args?: string[];
-    analysis?: object | string;
-};
-
 export const applyProfile = async (
     downloaded: string,
-    profile: ParsedProfile,
+    media: string,
+    profileName: string,
     outDir: string,
 ): Promise<ApplyProfileResponse> => {
-    const driver = MEDIA_DRIVERS[profile.media];
+    const profile = MEDIA_PROFILES[profileName];
+    const driver = MEDIA_DRIVERS[media];
     return driver.plugin.applyProfile(downloaded, profile, driver.props, outDir);
 };
-
-export type MediaOperationFunc = (
-    infile: string,
-    profile: ParsedProfile,
-    outfile: string,
-) => Promise<ApplyProfileResponse>;
