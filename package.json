@@ -1,6 +1,6 @@
 {
   "name": "yuebing-media",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "type": "module",
   "description": "Media processing framework for yuebing",
   "keywords": [
@@ -56,6 +56,6 @@
     "prettier": "^3.0.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^5.1.6",
-    "yuebing-model": "^2.7.4"
+    "yuebing-model": "^2.7.5"
   }
 }
