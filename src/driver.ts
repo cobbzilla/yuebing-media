@@ -14,7 +14,13 @@ export const registerMediaDriver = async (
     propRepo: MobilettoOrmRepository<MediaPropertyType>,
 ) => {
     const operations = (await operationRepo.safeFindBy("media", media.name)) as MediaOperationType[];
+    if (operations.length === 0) {
+        throw new Error(`registerMediaDriver(${media.name}): no operations defined`);
+    }
     const profiles = (await profileRepo.safeFindBy("media", media.name)) as MediaProfileType[];
+    if (profiles.length === 0) {
+        throw new Error(`registerMediaDriver(${media.name}): no profiles defined`);
+    }
     for (const profile of profiles) {
         const parsed = await parseProfile(profileRepo, operations, profile, plugin);
         if (parsed) {

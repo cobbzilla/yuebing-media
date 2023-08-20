@@ -1,6 +1,6 @@
 {
   "name": "yuebing-media",
-  "version": "1.0.36",
+  "version": "1.0.37",
   "type": "module",
   "description": "Media processing framework for yuebing",
   "keywords": [
