@@ -6,6 +6,8 @@ const MEDIA_DRIVERS: Record<string, MediaDriver> = {};
 
 const MEDIA_PROFILES: Record<string, ParsedProfile> = {};
 
+export type ParsedProperties = Record<string, object | string | number>;
+
 export const registerMediaDriver = async (
     media: MediaType,
     plugin: MediaPlugin,
@@ -13,24 +15,29 @@ export const registerMediaDriver = async (
     operationRepo: MobilettoOrmRepository<MediaOperationType>,
     propRepo: MobilettoOrmRepository<MediaPropertyType>,
 ) => {
+    // load properties
+    const props = (await propRepo.safeFindBy("media", media.name)) as MediaPropertyType[];
+    const parsedProps: ParsedProperties = {};
+    for (const prop of props) {
+        parsedProps[prop.name] = prop.value ? JSON.parse(prop.value) : null;
+    }
+
+    // load operations
     const operations = (await operationRepo.safeFindBy("media", media.name)) as MediaOperationType[];
     if (operations.length === 0) {
         throw new Error(`registerMediaDriver(${media.name}): no operations defined`);
     }
+
+    // load profiles
     const profiles = (await profileRepo.safeFindBy("media", media.name)) as MediaProfileType[];
     if (profiles.length === 0) {
         throw new Error(`registerMediaDriver(${media.name}): no profiles defined`);
     }
     for (const profile of profiles) {
-        const parsed = await parseProfile(profileRepo, operations, profile, plugin);
+        const parsed = await parseProfile(profileRepo, parsedProps, operations, profile, plugin);
         if (parsed) {
             MEDIA_PROFILES[parsed.name] = parsed;
         }
-    }
-    const props = (await propRepo.safeFindBy("media", media.name)) as MediaPropertyType[];
-    const parsedProps: Record<string, object | string | number> = {};
-    for (const prop of props) {
-        parsedProps[prop.name] = prop.value ? JSON.parse(prop.value) : null;
     }
     MEDIA_DRIVERS[media.name] = {
         operations,
@@ -41,6 +48,7 @@ export const registerMediaDriver = async (
 
 const parseProfile = async (
     profileRepo: MobilettoOrmRepository<MediaProfileType>,
+    parsedProps: ParsedProperties,
     operations: MediaOperationType[],
     profile: MediaProfileType | string,
     plugin: MediaPlugin,
@@ -50,7 +58,7 @@ const parseProfile = async (
     let fromProfile: ParsedProfile | null = null;
     if (prof.from) {
         const fromProfileObj = await profileRepo.findById(prof.from);
-        fromProfile = await parseProfile(profileRepo, operations, fromProfileObj, plugin);
+        fromProfile = await parseProfile(profileRepo, parsedProps, operations, fromProfileObj, plugin);
     }
     const parsed: ParsedProfile = Object.assign({}, fromProfile ? fromProfile : {}, profile) as ParsedProfile;
 
@@ -58,7 +66,9 @@ const parseProfile = async (
         parsed.subProfileObjects = [];
         for (const subProf of prof.subProfiles) {
             const subProfObject = await profileRepo.findById(subProf);
-            parsed.subProfileObjects.push(await parseProfile(profileRepo, operations, subProfObject, plugin));
+            parsed.subProfileObjects.push(
+                await parseProfile(profileRepo, parsedProps, operations, subProfObject, plugin),
+            );
         }
     }
 
@@ -66,7 +76,7 @@ const parseProfile = async (
         const op = operations.find((op) => op.name === prof.operation);
         if (op) {
             parsed.operationObject = op;
-            parsed.operationConfigType = plugin.operationConfigType(op);
+            parsed.operationConfigType = plugin.operationConfigType(op, parsedProps);
             parsed.operationConfig = prof.operationConfig ? JSON.parse(prof.operationConfig) : undefined;
         }
     }
