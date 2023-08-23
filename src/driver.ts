@@ -1,8 +1,9 @@
+import { MobilettoConnection } from "mobiletto-base";
 import { basename, MobilettoOrmRepository, shaLevels } from "mobiletto-orm";
-import { MediaOperationType, MediaProfileType, MediaPropertyType, MediaType } from "yuebing-model";
-import { ApplyProfileResponse, MediaDriver, MediaPlugin, ParsedProfile } from "./type.js";
+import { MediaProfileType, MediaType } from "yuebing-model";
+import { ApplyProfileResponse, MediaPlugin, ParsedProfile } from "./type.js";
 
-const MEDIA_DRIVERS: Record<string, MediaDriver> = {};
+const MEDIA_PLUGINS: Record<string, MediaPlugin> = {};
 
 const MEDIA_PROFILES: Record<string, ParsedProfile> = {};
 
@@ -12,44 +13,23 @@ export const registerMediaDriver = async (
     media: MediaType,
     plugin: MediaPlugin,
     profileRepo: MobilettoOrmRepository<MediaProfileType>,
-    operationRepo: MobilettoOrmRepository<MediaOperationType>,
-    propRepo: MobilettoOrmRepository<MediaPropertyType>,
 ) => {
-    // load properties
-    const props = (await propRepo.safeFindBy("media", media.name)) as MediaPropertyType[];
-    const parsedProps: ParsedProperties = {};
-    for (const prop of props) {
-        parsedProps[prop.name] = prop.value ? JSON.parse(prop.value) : null;
-    }
-
-    // load operations
-    const operations = (await operationRepo.safeFindBy("media", media.name)) as MediaOperationType[];
-    if (operations.length === 0) {
-        throw new Error(`registerMediaDriver(${media.name}): no operations defined`);
-    }
-
     // load profiles
     const profiles = (await profileRepo.safeFindBy("media", media.name)) as MediaProfileType[];
     if (profiles.length === 0) {
         throw new Error(`registerMediaDriver(${media.name}): no profiles defined`);
     }
     for (const profile of profiles) {
-        const parsed = await parseProfile(profileRepo, parsedProps, operations, profile, plugin);
+        const parsed = await parseProfile(profileRepo, profile, plugin);
         if (parsed) {
             MEDIA_PROFILES[parsed.name] = parsed;
         }
     }
-    MEDIA_DRIVERS[media.name] = {
-        operations,
-        props: parsedProps,
-        plugin,
-    };
+    MEDIA_PLUGINS[media.name] = plugin;
 };
 
 const parseProfile = async (
     profileRepo: MobilettoOrmRepository<MediaProfileType>,
-    parsedProps: ParsedProperties,
-    operations: MediaOperationType[],
     profile: MediaProfileType | string,
     plugin: MediaPlugin,
 ): Promise<ParsedProfile> => {
@@ -58,7 +38,7 @@ const parseProfile = async (
     let fromProfile: ParsedProfile | null = null;
     if (prof.from) {
         const fromProfileObj = await profileRepo.findById(prof.from);
-        fromProfile = await parseProfile(profileRepo, parsedProps, operations, fromProfileObj, plugin);
+        fromProfile = await parseProfile(profileRepo, fromProfileObj, plugin);
     }
     const parsed: ParsedProfile = Object.assign({}, fromProfile ? fromProfile : {}, profile) as ParsedProfile;
 
@@ -66,20 +46,10 @@ const parseProfile = async (
         parsed.subProfileObjects = [];
         for (const subProf of prof.subProfiles) {
             const subProfObject = await profileRepo.findById(subProf);
-            parsed.subProfileObjects.push(
-                await parseProfile(profileRepo, parsedProps, operations, subProfObject, plugin),
-            );
+            parsed.subProfileObjects.push(await parseProfile(profileRepo, subProfObject, plugin));
         }
     }
 
-    if (prof.operation) {
-        const op = operations.find((op) => op.name === prof.operation);
-        if (op) {
-            parsed.operationObject = op;
-            parsed.operationConfigType = plugin.operationConfigType(op, parsedProps);
-            parsed.operationConfig = prof.operationConfig ? JSON.parse(prof.operationConfig) : undefined;
-        }
-    }
     if (prof.additionalAssets && prof.additionalAssets.length > 0) {
         prof.additionalAssetsRegexes = prof.additionalAssets.map((re: string) => new RegExp(re));
     }
@@ -93,10 +63,12 @@ export const applyProfile = async (
     media: string,
     profileName: string,
     outDir: string,
+    sourcePath: string,
+    conn: MobilettoConnection,
 ): Promise<ApplyProfileResponse> => {
     const profile = MEDIA_PROFILES[profileName];
-    const driver = MEDIA_DRIVERS[media];
-    return driver.plugin.applyProfile(downloaded, profile, driver.props, outDir);
+    const plugin = MEDIA_PLUGINS[media];
+    return plugin.applyProfile(downloaded, profile, outDir, sourcePath, conn);
 };
 
 const ASSET_PATH_PREFIX = "ybAssets";
