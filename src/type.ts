@@ -22,6 +22,24 @@ export type MediaOperationFunc = (
     conn: MobilettoConnection,
 ) => Promise<ApplyProfileResponse>;
 
+export const MediaOperationTypeDef: MobilettoOrmTypeDef = new MobilettoOrmTypeDef({
+    typeName: "MediaOperation",
+    fields: {
+        name: { required: true, type: "string" },
+        analysis: { default: false },
+        command: { type: "string" },
+        func: { default: false },
+        minFileSize: { required: true, default: 0 },
+    },
+    validations: {
+        must_define_command_or_func: {
+            field: "command",
+            valid: (v) =>
+                (typeof v.command === "string" && v.command.length > 0) || (typeof v.func === "boolean" && v.func),
+        },
+    },
+});
+
 export type MediaPlugin = {
     applyProfile: MediaOperationFunc;
     operationConfigType: (operation: string, parsedProps: ParsedProperties) => MobilettoOrmTypeDef;

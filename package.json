@@ -1,6 +1,6 @@
 {
   "name": "yuebing-media",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "type": "module",
   "description": "Media processing framework for yuebing",
   "keywords": [
@@ -31,7 +31,8 @@
     "lint": "npx eslint src test",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier src test --check",
-    "prettier:fix": "npm run prettier -- --write"
+    "prettier:fix": "npm run prettier -- --write",
+    "orm-gen": "node lib/esm/scripts/generate.js"
   },
   "main": "./lib/esm/index.js",
   "module": "./lib/esm/index.js",
@@ -50,13 +51,16 @@
     "chai": "^4.3.6",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
+    "handlebars": "^4.7.8",
     "mobiletto-base": "^2.1.1",
-    "mobiletto-orm": "^2.2.43",
-    "mobiletto-orm-typedef": "^2.4.8",
+    "mobiletto-orm": "^2.2.44",
+    "mobiletto-orm-typedef": "^2.4.9",
+    "mobiletto-orm-typedef-gen": "^2.3.46",
     "mocha": "^10.2.0",
     "prettier": "^3.0.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^5.1.6",
-    "yuebing-model": "^2.7.19"
+    "yuebing-model": "^2.7.21",
+    "yuebing-util": "^1.0.0"
   }
 }
