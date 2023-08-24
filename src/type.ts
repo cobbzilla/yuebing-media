@@ -1,5 +1,7 @@
 import { MediaProfileType } from "yuebing-model";
 import { MobilettoConnection } from "mobiletto-base";
+import { ParsedProperties } from "./driver";
+import { MobilettoOrmTypeDef } from "mobiletto-orm-typedef";
 
 export type ApplyProfileResponse = {
     args?: string[];
@@ -22,4 +24,5 @@ export type MediaOperationFunc = (
 
 export type MediaPlugin = {
     applyProfile: MediaOperationFunc;
+    operationConfigType: (operation: string, parsedProps: ParsedProperties) => MobilettoOrmTypeDef;
 };
