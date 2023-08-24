@@ -9,6 +9,7 @@ export type ApplyProfileResponse = {
 export type ParsedProfile = MediaProfileType & {
     subProfileObjects?: ParsedProfile[];
     additionalAssetsRegexes?: RegExp[];
+    operationObject: MediaOperationType;
     operationConfigObject?: Record<string, string | number | boolean | object>;
 };
 export type MediaOperationFunc = (downloaded: string, profile: ParsedProfile, outDir: string, sourcePath: string, conn: MobilettoConnection) => Promise<ApplyProfileResponse>;

@@ -11,6 +11,7 @@ export type ApplyProfileResponse = {
 export type ParsedProfile = MediaProfileType & {
     subProfileObjects?: ParsedProfile[];
     additionalAssetsRegexes?: RegExp[];
+    operationObject: MediaOperationType;
     operationConfigObject?: Record<string, string | number | boolean | object>;
 };
 

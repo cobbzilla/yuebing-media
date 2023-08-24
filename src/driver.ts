@@ -52,6 +52,7 @@ const parseProfile = async (
         prof.additionalAssetsRegexes = prof.additionalAssets.map((re: string) => new RegExp(re));
     }
 
+    parsed.operationObject = plugin.operations[prof.operation];
     if (prof.operationConfig) {
         parsed.operationConfigObject = JSON.parse(prof.operationConfig);
     }
