@@ -7,8 +7,6 @@ const MEDIA_PLUGINS: Record<string, MediaPlugin> = {};
 
 const MEDIA_PROFILES: Record<string, ParsedProfile> = {};
 
-export type ParsedProperties = Record<string, object | string | number>;
-
 export const registerMediaDriver = async (
     media: MediaType,
     plugin: MediaPlugin,
