@@ -53,6 +53,10 @@ const parseProfile = async (
     if (prof.additionalAssets && prof.additionalAssets.length > 0) {
         prof.additionalAssetsRegexes = prof.additionalAssets.map((re: string) => new RegExp(re));
     }
+
+    if (prof.operationConfig) {
+        parsed.operationConfigObject = JSON.parse(prof.operationConfig);
+    }
     return parsed;
 };
 
