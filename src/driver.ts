@@ -1,5 +1,5 @@
 import { MobilettoConnection } from "mobiletto-base";
-import { basename, MobilettoOrmRepository, shaLevels } from "mobiletto-orm";
+import { MobilettoOrmRepository } from "mobiletto-orm";
 import { MediaProfileType, MediaType } from "yuebing-model";
 import { ApplyProfileResponse, MediaPlugin, ParsedProfile } from "./type.js";
 
@@ -73,12 +73,3 @@ export const applyProfile = async (
     const plugin = MEDIA_PLUGINS[media];
     return plugin.applyProfile(downloaded, profile, outDir, sourcePath, conn);
 };
-
-const ASSET_PATH_PREFIX = "ybAssets";
-const ASSET_SHA_LEVELS = 3;
-
-export const destinationProfilePath = (sourceAsset: string, media: string, profile: string): string =>
-    `${ASSET_PATH_PREFIX}/${shaLevels(sourceAsset, ASSET_SHA_LEVELS)}/${basename(sourceAsset)}/${media}/${profile}`;
-
-export const destinationPath = (sourceAsset: string, media: string, profile: string, filename: string): string =>
-    `${destinationProfilePath(sourceAsset, media, profile)}/${basename(filename)}`;
