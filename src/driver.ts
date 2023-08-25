@@ -1,6 +1,6 @@
 import { MobilettoConnection } from "mobiletto-base";
 import { MobilettoOrmRepository } from "mobiletto-orm";
-import { MediaProfileType, MediaType } from "yuebing-model";
+import { MediaProfileType, MediaType, ProfileJobType } from "yuebing-model";
 import { ApplyProfileResponse, MediaPlugin, ParsedProfile } from "./type.js";
 
 const MEDIA_PLUGINS: Record<string, MediaPlugin> = {};
@@ -68,8 +68,9 @@ export const applyProfile = async (
     outDir: string,
     sourcePath: string,
     conn: MobilettoConnection,
+    analysisResults: ProfileJobType[],
 ): Promise<ApplyProfileResponse> => {
     const profile = MEDIA_PROFILES[profileName];
     const plugin = MEDIA_PLUGINS[media];
-    return plugin.applyProfile(downloaded, profile, outDir, sourcePath, conn);
+    return plugin.applyProfile(downloaded, profile, outDir, sourcePath, conn, analysisResults);
 };
