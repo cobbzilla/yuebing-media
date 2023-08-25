@@ -5,6 +5,7 @@ import { MediaOperationType } from "./type/MediaOperationType.js";
 export type ApplyProfileResponse = {
     args?: string[];
     result?: object | string | number | boolean;
+    upload?: boolean;
 };
 export type ParsedProfile = MediaProfileType & {
     subProfileObjects?: ParsedProfile[];

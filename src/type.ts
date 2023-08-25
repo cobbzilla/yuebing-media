@@ -6,6 +6,10 @@ import { MediaOperationType } from "./type/MediaOperationType.js";
 export type ApplyProfileResponse = {
     args?: string[];
     result?: object | string | number | boolean;
+    // normally analysis results are stored in the job object, not uploaded
+    // if you return this flag=true, then yuebing-scan will upload analysis assets
+    // before beginning transform profiles
+    upload?: boolean;
 };
 
 export type ParsedProfile = MediaProfileType & {
