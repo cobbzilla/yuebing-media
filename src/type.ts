@@ -20,8 +20,8 @@ export type MediaOperationFunc = (
     profile: ParsedProfile,
     outDir: string,
     sourcePath: string,
-    conn: MobilettoConnection,
-    analysisResults: ProfileJobType[],
+    conn?: MobilettoConnection,
+    analysisResults?: ProfileJobType[],
 ) => Promise<ApplyProfileResponse>;
 
 export const MediaOperationTypeDef: MobilettoOrmTypeDef = new MobilettoOrmTypeDef({

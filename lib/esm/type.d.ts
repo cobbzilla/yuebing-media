@@ -12,7 +12,7 @@ export type ParsedProfile = MediaProfileType & {
     operationObject: MediaOperationType;
     operationConfigObject?: Record<string, string | number | boolean | object>;
 };
-export type MediaOperationFunc = (downloaded: string, profile: ParsedProfile, outDir: string, sourcePath: string, conn: MobilettoConnection, analysisResults: ProfileJobType[]) => Promise<ApplyProfileResponse>;
+export type MediaOperationFunc = (downloaded: string, profile: ParsedProfile, outDir: string, sourcePath: string, conn?: MobilettoConnection, analysisResults?: ProfileJobType[]) => Promise<ApplyProfileResponse>;
 export declare const MediaOperationTypeDef: MobilettoOrmTypeDef;
 export type MediaPlugin = {
     applyProfile: MediaOperationFunc;
