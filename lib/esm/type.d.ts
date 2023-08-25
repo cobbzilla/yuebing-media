@@ -4,7 +4,7 @@ import { MediaProfileType } from "yuebing-model";
 import { MediaOperationType } from "./type/MediaOperationType.js";
 export type ApplyProfileResponse = {
     args?: string[];
-    analysis?: object | string | number | boolean;
+    result?: object | string | number | boolean;
 };
 export type ParsedProfile = MediaProfileType & {
     subProfileObjects?: ParsedProfile[];
