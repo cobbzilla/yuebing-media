@@ -60,7 +60,7 @@
     "prettier": "^3.0.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^5.1.6",
-    "yuebing-model": "^2.7.23",
+    "yuebing-model": "^2.7.24",
     "yuebing-util": "^1.0.0"
   }
 }
