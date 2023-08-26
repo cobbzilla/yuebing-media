@@ -28,7 +28,7 @@ export const registerMediaPlugin = async (
     let profiles = (await profileRepo.safeFindBy("media", media.name)) as MediaProfileType[];
     if (!profiles || profiles.length === 0) {
         profiles = [];
-        for (const profile of plugin.defaultProfiles) {
+        for (const profile of plugin.defaultProfiles()) {
             profile.media = plugin.media.name;
             profiles.push(await profileRepo.create(profile));
         }
@@ -88,7 +88,8 @@ const parseProfile = async (
         prof.additionalAssetsRegexes = prof.additionalAssets.map((re: string) => new RegExp(re));
     }
 
-    parsed.operationObject = plugin.operations[prof.operation];
+    const operations = plugin.operations();
+    parsed.operationObject = operations[prof.operation];
     if (!parsed.operationObject) {
         throw new Error(`parseProfile(${prof.name}): operation=${prof.operation} not found in plugin.operations`);
     }
