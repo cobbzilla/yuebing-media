@@ -52,7 +52,7 @@ export const updateMediaProfile = async (
         throw new Error(`updateMediaProfile: plugin.media was undefined. plugin=${JSON.stringify(plugin)}`);
     }
     profile.media = plugin.media.name;
-    const existing = profileRepo.safeFindById(profile.name);
+    const existing = await profileRepo.safeFindById(profile.name);
     if (existing) {
         const update: MediaProfileType = Object.assign({}, existing, profile);
         profile = await profileRepo.update(update);
