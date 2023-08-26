@@ -27,7 +27,11 @@ export const registerMediaPlugin = async (
     // load profiles
     let profiles = (await profileRepo.safeFindBy("media", media.name)) as MediaProfileType[];
     if (!profiles || profiles.length === 0) {
-        profiles = plugin.defaultProfiles;
+        profiles = [];
+        for (const profile of plugin.defaultProfiles) {
+            profile.media = plugin.media.name;
+            profiles.push(await profileRepo.create(profile));
+        }
     }
     for (const profile of profiles) {
         const parsed = await parseProfile(profileRepo, profile, plugin);
