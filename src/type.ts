@@ -47,6 +47,7 @@ export const MediaOperationTypeDef: MobilettoOrmTypeDef = new MobilettoOrmTypeDe
 });
 
 export type MediaPlugin = {
+    initialize?: () => unknown;
     media?: MediaType;
     operations: () => Record<string, MediaOperationType>;
     operationFunction: (op: string) => MediaOperationFunc;

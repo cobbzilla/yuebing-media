@@ -15,6 +15,7 @@ export const registerMediaPlugin = async (
     if (!plugin.media) {
         throw new Error(`registerMediaPlugin: plugin.media was undefined. plugin=${JSON.stringify(plugin)}`);
     }
+    if (plugin.initialize) plugin.initialize();
 
     // load media
     const existingMedia = await mediaRepo.safeFindById(plugin.media.name);

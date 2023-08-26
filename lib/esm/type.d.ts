@@ -16,6 +16,7 @@ export type ParsedProfile = MediaProfileType & {
 export type MediaOperationFunc = (downloaded: string, profile: ParsedProfile, outDir: string, sourcePath: string, conn?: MobilettoConnection, analysisResults?: ProfileJobType[]) => Promise<ApplyProfileResponse>;
 export declare const MediaOperationTypeDef: MobilettoOrmTypeDef;
 export type MediaPlugin = {
+    initialize?: () => unknown;
     media?: MediaType;
     operations: () => Record<string, MediaOperationType>;
     operationFunction: (op: string) => MediaOperationFunc;
