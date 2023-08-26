@@ -50,4 +50,5 @@ export type MediaPlugin = {
     applyProfile: MediaOperationFunc;
     operations: Record<string, MediaOperationType>;
     operationConfigType: (operation: string) => MobilettoOrmTypeDef | undefined;
+    defaultProfiles: MediaProfileType[];
 };

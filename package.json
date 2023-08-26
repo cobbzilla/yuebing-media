@@ -1,18 +1,11 @@
 {
   "name": "yuebing-media",
-  "version": "1.1.15",
+  "version": "1.1.16",
   "type": "module",
   "description": "Media processing framework for yuebing",
   "keywords": [
-    "storage",
-    "s3",
-    "b2",
-    "simple",
-    "filesystem",
-    "orm",
-    "tool",
-    "mobiletto",
-    "mobiletto-orm"
+    "yuebing",
+    "media"
   ],
   "homepage": "https://github.com/cobbzilla/yuebing-media",
   "author": "Jonathan Cobb <udo9jqld@duck.com> (https://github.com/cobbzilla)",
