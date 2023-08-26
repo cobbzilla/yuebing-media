@@ -111,6 +111,11 @@ export const applyProfile = async (
     analysisResults: ProfileJobType[],
 ): Promise<ApplyProfileResponse> => {
     const profile = MEDIA_PROFILES[profileName];
+    if (profile.noop) throw new Error(`applyProfile: cannot apply noop profile: ${profile.name}`);
+    if (!profile.enabled) throw new Error(`applyProfile: profile not enabled: ${profile.name}`);
+    if (!profile.operation) throw new Error(`applyProfile: no operation defined for profile: ${profile.name}`);
+
     const plugin = MEDIA_PLUGINS[media];
-    return plugin.applyProfile(downloaded, profile, outDir, sourcePath, conn, analysisResults);
+    const opFunction = plugin.operationFunction(profile.operation);
+    return opFunction(downloaded, profile, outDir, sourcePath, conn, analysisResults);
 };

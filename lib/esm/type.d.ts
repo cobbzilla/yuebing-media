@@ -17,8 +17,8 @@ export type MediaOperationFunc = (downloaded: string, profile: ParsedProfile, ou
 export declare const MediaOperationTypeDef: MobilettoOrmTypeDef;
 export type MediaPlugin = {
     media?: MediaType;
-    applyProfile: MediaOperationFunc;
     operations: () => Record<string, MediaOperationType>;
+    operationFunction: (op: string) => MediaOperationFunc;
     operationConfigType: (operation: string) => MobilettoOrmTypeDef | undefined;
     defaultProfiles: () => MediaProfileType[];
 };
