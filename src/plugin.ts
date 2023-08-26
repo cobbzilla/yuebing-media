@@ -1,5 +1,5 @@
 import { MobilettoConnection } from "mobiletto-base";
-import { MobilettoOrmRepository } from "mobiletto-orm";
+import { mergeDeep, MobilettoOrmRepository } from "mobiletto-orm";
 import { MediaProfileType, MediaType, ProfileJobType } from "yuebing-model";
 import { ApplyProfileResponse, MediaPlugin, ParsedProfile } from "./type.js";
 
@@ -76,6 +76,15 @@ const parseProfile = async (
         fromProfile = await parseProfile(profileRepo, fromProfileObj, plugin);
     }
     const parsed: ParsedProfile = Object.assign({}, fromProfile ? fromProfile : {}, profile) as ParsedProfile;
+    if (fromProfile && fromProfile.operationConfig) {
+        if (prof.operationConfig) {
+            parsed.operationConfig = JSON.stringify(
+                mergeDeep(JSON.parse(fromProfile.operationConfig), JSON.parse(prof.operationConfig)),
+            );
+        } else {
+            parsed.operationConfig = JSON.stringify(JSON.parse(fromProfile.operationConfig));
+        }
+    }
 
     if (prof.subProfiles && prof.subProfiles.length > 0) {
         parsed.subProfileObjects = [];
