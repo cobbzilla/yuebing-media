@@ -31,7 +31,7 @@ export const registerMediaPlugin = async (
         for (const profile of plugin.defaultProfiles()) {
             const parsed = await parseProfile(profileRepo, profile, plugin);
             const created = await profileRepo.create(parsed);
-            MEDIA_PROFILES[created.name] = parsed;
+            MEDIA_PROFILES[created.name] = await parseProfile(profileRepo, created, plugin);
         }
     } else {
         for (const profile of profiles) {
