@@ -43,6 +43,25 @@ export const registerMediaPlugin = async (
     return true;
 };
 
+export const updateMediaProfile = async (
+    plugin: MediaPlugin,
+    profile: MediaProfileType,
+    profileRepo: MobilettoOrmRepository<MediaProfileType>,
+) => {
+    if (!plugin.media) {
+        throw new Error(`updateMediaProfile: plugin.media was undefined. plugin=${JSON.stringify(plugin)}`);
+    }
+    profile.media = plugin.media.name;
+    const existing = profileRepo.safeFindById(profile.name);
+    if (existing) {
+        const update: MediaProfileType = Object.assign({}, existing, profile);
+        profile = await profileRepo.update(update);
+    } else {
+        profile = await profileRepo.create(profile);
+    }
+    MEDIA_PROFILES[profile.name] = await parseProfile(profileRepo, profile, plugin);
+};
+
 const parseProfile = async (
     profileRepo: MobilettoOrmRepository<MediaProfileType>,
     profile: MediaProfileType | string,
