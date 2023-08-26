@@ -8,14 +8,26 @@ const MEDIA_PLUGINS: Record<string, MediaPlugin> = {};
 const MEDIA_PROFILES: Record<string, ParsedProfile> = {};
 
 export const registerMediaPlugin = async (
-    media: MediaType,
     plugin: MediaPlugin,
+    mediaRepo: MobilettoOrmRepository<MediaType>,
     profileRepo: MobilettoOrmRepository<MediaProfileType>,
-) => {
+): Promise<boolean> => {
+    if (!plugin.media) {
+        throw new Error(`registerMediaPlugin: plugin.media was undefined. plugin=${JSON.stringify(plugin)}`);
+    }
+
+    // load media
+    const existingMedia = await mediaRepo.safeFindById(plugin.media.name);
+    if (existingMedia) {
+        console.warn(`registerMediaPlugin: plugin for media=${plugin.media.name} already registered`);
+        return false;
+    }
+    const media = await mediaRepo.create(plugin.media);
+
     // load profiles
-    const profiles = (await profileRepo.safeFindBy("media", media.name)) as MediaProfileType[];
-    if (profiles.length === 0) {
-        throw new Error(`registerMediaPlugin(${media.name}): no profiles defined`);
+    let profiles = (await profileRepo.safeFindBy("media", media.name)) as MediaProfileType[];
+    if (!profiles || profiles.length === 0) {
+        profiles = plugin.defaultProfiles;
     }
     for (const profile of profiles) {
         const parsed = await parseProfile(profileRepo, profile, plugin);
@@ -24,6 +36,7 @@ export const registerMediaPlugin = async (
         }
     }
     MEDIA_PLUGINS[media.name] = plugin;
+    return true;
 };
 
 const parseProfile = async (
