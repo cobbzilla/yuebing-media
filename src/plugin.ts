@@ -7,7 +7,7 @@ const MEDIA_PLUGINS: Record<string, MediaPlugin> = {};
 
 const MEDIA_PROFILES: Record<string, ParsedProfile> = {};
 
-export const registerMediaDriver = async (
+export const registerMediaPlugin = async (
     media: MediaType,
     plugin: MediaPlugin,
     profileRepo: MobilettoOrmRepository<MediaProfileType>,
@@ -15,7 +15,7 @@ export const registerMediaDriver = async (
     // load profiles
     const profiles = (await profileRepo.safeFindBy("media", media.name)) as MediaProfileType[];
     if (profiles.length === 0) {
-        throw new Error(`registerMediaDriver(${media.name}): no profiles defined`);
+        throw new Error(`registerMediaPlugin(${media.name}): no profiles defined`);
     }
     for (const profile of profiles) {
         const parsed = await parseProfile(profileRepo, profile, plugin);
