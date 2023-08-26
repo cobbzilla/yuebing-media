@@ -11,36 +11,39 @@ export const registerMediaPlugin = async (
     plugin: MediaPlugin,
     mediaRepo: MobilettoOrmRepository<MediaType>,
     profileRepo: MobilettoOrmRepository<MediaProfileType>,
-): Promise<boolean> => {
+): Promise<ParsedProfile[]> => {
     if (!plugin.media) {
         throw new Error(`registerMediaPlugin: plugin.media was undefined. plugin=${JSON.stringify(plugin)}`);
     }
     if (plugin.initialize) plugin.initialize();
 
     // load media
-    const existingMedia = await mediaRepo.safeFindById(plugin.media.name);
-    if (existingMedia) {
+    let media = await mediaRepo.safeFindById(plugin.media.name);
+    if (media) {
         console.warn(`registerMediaPlugin: plugin for media=${plugin.media.name} already registered`);
-        return false;
+    } else {
+        media = await mediaRepo.create(plugin.media);
     }
-    const media = await mediaRepo.create(plugin.media);
 
     // load profiles
     const profiles = (await profileRepo.safeFindBy("media", media.name)) as MediaProfileType[];
+    const parsedProfiles: ParsedProfile[] = [];
     if (!profiles || profiles.length === 0) {
         for (const profile of plugin.defaultProfiles()) {
             const parsed = await parseProfile(profileRepo, profile, plugin);
             const created = await profileRepo.create(parsed);
             MEDIA_PROFILES[created.name] = await parseProfile(profileRepo, created, plugin);
+            parsedProfiles.push(MEDIA_PROFILES[created.name]);
         }
     } else {
         for (const profile of profiles) {
             const parsed = await parseProfile(profileRepo, profile, plugin);
             MEDIA_PROFILES[parsed.name] = parsed;
+            parsedProfiles.push(parsed);
         }
     }
     MEDIA_PLUGINS[media.name] = plugin;
-    return true;
+    return parsedProfiles;
 };
 
 export const updateMediaProfile = async (
