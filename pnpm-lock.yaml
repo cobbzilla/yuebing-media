@@ -36,14 +36,14 @@ devDependencies:
     specifier: ^2.1.1
     version: 2.1.1
   mobiletto-orm:
-    specifier: ^2.2.44
-    version: 2.2.44
+    specifier: ^2.2.45
+    version: 2.2.45
   mobiletto-orm-typedef:
-    specifier: ^2.4.9
-    version: 2.4.9
+    specifier: ^2.4.10
+    version: 2.4.10
   mobiletto-orm-typedef-gen:
-    specifier: ^2.3.46
-    version: 2.3.46
+    specifier: ^2.3.47
+    version: 2.3.47
   mocha:
     specifier: ^10.2.0
     version: 10.2.0
@@ -57,8 +57,8 @@ devDependencies:
     specifier: ^5.1.6
     version: 5.1.6
   yuebing-model:
-    specifier: ^2.7.29
-    version: 2.7.29
+    specifier: ^2.7.30
+    version: 2.7.30
   zilla-util:
     specifier: ^1.0.1
     version: 1.0.1
@@ -1178,19 +1178,19 @@ packages:
       consola: 3.2.3
     dev: true
 
-  /mobiletto-orm-typedef-gen@2.3.46:
-    resolution: {integrity: sha512-Z+i2bCJB7d1Zb8FeIx5gOca+N8NNNgec2P+42M+ysk5uIxPWy26Yi/TBvokUILFmPZQy+Iy728+EOxjaS36Nyg==}
+  /mobiletto-orm-typedef-gen@2.3.47:
+    resolution: {integrity: sha512-Nj23M6OP8HgZR8dikgAibvK6g+Sfw166XqKYb8Q4x7ge/SVp2yyJdNbE86JscZv1OZN9Rhals6uIREkoNZfC2A==}
     dev: true
 
-  /mobiletto-orm-typedef@2.4.9:
-    resolution: {integrity: sha512-0jfhxpKnopwsrpihtVcJM5fZfi2G7shZ4xph6ZKlyohc+h5Pykp+Y3pCf5gSYwo35SWZcjQwDRSrdIFm57UH1g==}
+  /mobiletto-orm-typedef@2.4.10:
+    resolution: {integrity: sha512-udFgR+b7ePxexrWRhn4dA8svRdbyzslxq4ri7VvtufXgKs8gMYIA8ysJ4qgK780qB3XkOcqOK3hHLj2Zz14K5A==}
     dependencies:
       shasum: 1.0.2
       uuid: 9.0.0
     dev: true
 
-  /mobiletto-orm@2.2.44:
-    resolution: {integrity: sha512-M39L+ZznoAf1YvfOmSvJZxDkB2Lsc1Hjo1jX8erjPKNM2L5Au8lDmU8qbrqRVVHjhDdPnKtNbnZnmRsPDFJLjA==}
+  /mobiletto-orm@2.2.45:
+    resolution: {integrity: sha512-1l1jVh18l/0YhusO4g9PD0EdQrEnV/rzu+St7bPVXXLnD6jZaJ3DFyBQxQrTKn3lrrWUsHogg0tcdpkLZ8haJA==}
     dev: true
 
   /mocha@10.2.0:
@@ -1685,8 +1685,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /yuebing-model@2.7.29:
-    resolution: {integrity: sha512-TLpXX6FGWfoSBCMbBdlGtrXH8QSjzu5kbIQGvxEFUUzJuTA2n66EJH9/ura5YJAtElXU9lNfUkj9mRn9+zhPaA==}
+  /yuebing-model@2.7.30:
+    resolution: {integrity: sha512-JZNp/MrFocMxspGehN1ImlR+3RxDnMEuzaGWtIpshFnX7NkKaGmqMxvqeksYzVjuYs5qW8zhr27BK6l7pGZgKw==}
     dev: true
 
   /zilla-util@1.0.1:
