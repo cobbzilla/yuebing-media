@@ -46,6 +46,21 @@ export const MediaOperationTypeDef: MobilettoOrmTypeDef = new MobilettoOrmTypeDe
     },
 });
 
+export type MediaPluginProfileType = {
+    name: string;
+    enabled?: boolean;
+    operation?: string;
+    operationConfig?: string;
+    ext?: string;
+    contentType?: string;
+    from?: string;
+    subProfiles?: string[];
+    additionalAssets?: string[];
+    noop?: boolean;
+    primary?: boolean;
+    multiFile?: boolean;
+};
+
 export type MediaPlugin = {
     initialize?: () => unknown;
     media?: MediaType;
