@@ -1,8 +1,8 @@
 import { fileURLToPath } from "url";
 import path from "path";
+import { capitalize } from "zilla-util";
 import { MobilettoOrmTypeDef } from "mobiletto-orm-typedef";
 import { generateTypeScriptType } from "mobiletto-orm-typedef-gen";
-import { capitalize } from "yuebing-util";
 import { MediaOperationTypeDef } from "../type.js";
 
 const __filename = fileURLToPath(import.meta.url);
