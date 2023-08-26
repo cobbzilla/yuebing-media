@@ -26,17 +26,16 @@ export const registerMediaPlugin = async (
     const media = await mediaRepo.create(plugin.media);
 
     // load profiles
-    let profiles = (await profileRepo.safeFindBy("media", media.name)) as MediaProfileType[];
+    const profiles = (await profileRepo.safeFindBy("media", media.name)) as MediaProfileType[];
     if (!profiles || profiles.length === 0) {
-        profiles = [];
         for (const profile of plugin.defaultProfiles()) {
-            profile.media = plugin.media.name;
-            profiles.push(await profileRepo.create(profile));
+            const parsed = await parseProfile(profileRepo, profile, plugin);
+            const created = await profileRepo.create(parsed);
+            MEDIA_PROFILES[created.name] = parsed;
         }
-    }
-    for (const profile of profiles) {
-        const parsed = await parseProfile(profileRepo, profile, plugin);
-        if (parsed) {
+    } else {
+        for (const profile of profiles) {
+            const parsed = await parseProfile(profileRepo, profile, plugin);
             MEDIA_PROFILES[parsed.name] = parsed;
         }
     }
