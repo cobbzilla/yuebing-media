@@ -68,6 +68,7 @@ const parseProfile = async (
     plugin: MediaPlugin,
 ): Promise<ParsedProfile> => {
     const prof: MediaProfileType = typeof profile === "string" ? await profileRepo.findById(profile) : profile;
+    if (plugin.media) prof.media = plugin.media.name;
 
     let fromProfile: ParsedProfile | null = null;
     if (prof.from) {
