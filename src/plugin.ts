@@ -70,6 +70,9 @@ const parseProfile = async (
     }
 
     parsed.operationObject = plugin.operations[prof.operation];
+    if (!parsed.operationObject) {
+        throw new Error(`parseProfile(${prof.name}): operation=${prof.operation} not found in plugin.operations`);
+    }
     if (prof.operationConfig) {
         parsed.operationConfigObject = JSON.parse(prof.operationConfig);
     }
