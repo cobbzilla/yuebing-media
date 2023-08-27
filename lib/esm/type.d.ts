@@ -27,7 +27,6 @@ export type MediaPluginProfileType = {
     additionalAssets?: string[];
     noop?: boolean;
     primary?: boolean;
-    multiFile?: boolean;
 };
 export type MediaPlugin = {
     initialize?: () => unknown;
