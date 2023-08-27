@@ -101,10 +101,12 @@ const parseProfile = async (
         prof.additionalAssetsRegexes = prof.additionalAssets.map((re: string) => new RegExp(re));
     }
 
-    const operations = plugin.operations();
-    parsed.operationObject = operations[parsed.operation];
-    if (!parsed.operationObject) {
-        throw new Error(`parseProfile(${prof.name}): operation=${prof.operation} not found in plugin.operations`);
+    if (!parsed.noop) {
+        const operations = plugin.operations();
+        parsed.operationObject = operations[parsed.operation];
+        if (!parsed.operationObject) {
+            throw new Error(`parseProfile(${prof.name}): operation=${prof.operation} not found in plugin.operations`);
+        }
     }
     if (prof.operationConfig) {
         parsed.operationConfigObject = JSON.parse(prof.operationConfig);
