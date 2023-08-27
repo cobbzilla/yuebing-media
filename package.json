@@ -53,7 +53,7 @@
     "prettier": "^3.0.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^5.1.6",
-    "yuebing-model": "^2.7.31",
+    "yuebing-model": "^2.7.32",
     "zilla-util": "^1.0.1"
   }
 }

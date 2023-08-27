@@ -57,8 +57,8 @@ devDependencies:
     specifier: ^5.1.6
     version: 5.1.6
   yuebing-model:
-    specifier: ^2.7.31
-    version: 2.7.31
+    specifier: ^2.7.32
+    version: 2.7.32
   zilla-util:
     specifier: ^1.0.1
     version: 1.0.1
@@ -1685,8 +1685,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /yuebing-model@2.7.31:
-    resolution: {integrity: sha512-hPzeMqGBvovblkIzs7RSG9EY+35qRhrQWfS2/7hfRhETyvuhDsLpEDEODTxlz8DXld2KHmSgDfUa4PeOuCzBNA==}
+  /yuebing-model@2.7.32:
+    resolution: {integrity: sha512-oMzqgi37aZW9iCAjomNyMZkREXnEXb5rO0n7V1/jJBXPnKhAmd/yrqYDLndAgR1VwkNqu9s+VEMCp47Y+CmGcw==}
     dev: true
 
   /zilla-util@1.0.1:
