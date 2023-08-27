@@ -57,12 +57,16 @@ export const updateMediaProfile = async (
     profile.media = plugin.media.name;
     const existing = await profileRepo.safeFindById(profile.name);
     if (existing) {
-        const update: MediaProfileType = Object.assign({}, existing, profile);
+        const parsed = await parseProfile(profileRepo, profile, plugin);
+        const update: MediaProfileType = Object.assign({}, existing, parsed);
         profile = await profileRepo.update(update);
     } else {
-        profile = await profileRepo.create(profile);
+        const parsed = await parseProfile(profileRepo, profile, plugin);
+        profile = await profileRepo.create(parsed);
     }
-    MEDIA_PROFILES[profile.name] = await parseProfile(profileRepo, profile, plugin);
+    const finalizedProfile = await parseProfile(profileRepo, profile, plugin);
+    MEDIA_PROFILES[profile.name] = finalizedProfile;
+    return finalizedProfile;
 };
 
 const parseProfile = async (
@@ -132,5 +136,8 @@ export const applyProfile = async (
 
     const plugin = MEDIA_PLUGINS[media];
     const opFunction = plugin.operationFunction(profile.operation);
+    if (!opFunction) {
+        throw new Error(`applyProfile: undefined operation=${profile.operation} for profile=${profile.name}`);
+    }
     return opFunction(downloaded, profile, outDir, sourcePath, conn, analysisResults);
 };
