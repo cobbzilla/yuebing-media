@@ -102,7 +102,7 @@ const parseProfile = async (
     }
 
     if (prof.additionalAssets && prof.additionalAssets.length > 0) {
-        prof.additionalAssetsRegexes = prof.additionalAssets.map((re: string) => new RegExp(re));
+        parsed.additionalAssetsRegexes = prof.additionalAssets.map((re: string) => new RegExp(re));
     }
 
     if (!parsed.noop) {
