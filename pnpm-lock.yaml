@@ -36,8 +36,8 @@ devDependencies:
     specifier: ^2.1.1
     version: 2.1.1
   mobiletto-orm:
-    specifier: ^2.2.45
-    version: 2.2.45
+    specifier: ^2.2.46
+    version: 2.2.46
   mobiletto-orm-typedef:
     specifier: ^2.4.10
     version: 2.4.10
@@ -57,8 +57,8 @@ devDependencies:
     specifier: ^5.1.6
     version: 5.1.6
   yuebing-model:
-    specifier: ^2.7.32
-    version: 2.7.32
+    specifier: ^2.7.33
+    version: 2.7.33
   zilla-util:
     specifier: ^1.0.1
     version: 1.0.1
@@ -1189,8 +1189,8 @@ packages:
       uuid: 9.0.0
     dev: true
 
-  /mobiletto-orm@2.2.45:
-    resolution: {integrity: sha512-1l1jVh18l/0YhusO4g9PD0EdQrEnV/rzu+St7bPVXXLnD6jZaJ3DFyBQxQrTKn3lrrWUsHogg0tcdpkLZ8haJA==}
+  /mobiletto-orm@2.2.46:
+    resolution: {integrity: sha512-DbyQkg7ccjjrgAoNybd0AoRDUDZvm4kSpezjndpYi1cmfgg2TvOtYBK1tEyUo5umhw0IGVhw6v6n6U5dL79Ajw==}
     dev: true
 
   /mocha@10.2.0:
@@ -1685,8 +1685,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /yuebing-model@2.7.32:
-    resolution: {integrity: sha512-oMzqgi37aZW9iCAjomNyMZkREXnEXb5rO0n7V1/jJBXPnKhAmd/yrqYDLndAgR1VwkNqu9s+VEMCp47Y+CmGcw==}
+  /yuebing-model@2.7.33:
+    resolution: {integrity: sha512-OycWHXbndMZPdt0rDQReSnkOqwLkcUTXAnDX6wLXXjaqV4lBT1s3CZyLELRLXlm2lDWoSjaS2J1iPVtrT4zX5w==}
     dev: true
 
   /zilla-util@1.0.1:
