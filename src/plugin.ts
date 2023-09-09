@@ -1,4 +1,4 @@
-import { MobilettoConnection } from "mobiletto-base";
+import { MobilettoConnection, MobilettoLogger } from "mobiletto-base";
 import { mergeDeep, MobilettoOrmRepository } from "mobiletto-orm";
 import { MediaProfileType, MediaType, ProfileJobType } from "yuebing-model";
 import { ApplyProfileResponse, MediaPlugin, ParsedProfile } from "./type.js";
@@ -121,6 +121,7 @@ const parseProfile = async (
 export const loadProfile = (name: string): ParsedProfile => MEDIA_PROFILES[name];
 
 export const applyProfile = async (
+    logger: MobilettoLogger,
     downloaded: string,
     media: string,
     profileName: string,
@@ -139,5 +140,5 @@ export const applyProfile = async (
     if (!opFunction) {
         throw new Error(`applyProfile: undefined operation=${profile.operation} for profile=${profile.name}`);
     }
-    return opFunction(downloaded, profile, outDir, sourcePath, conn, analysisResults);
+    return opFunction(logger, downloaded, profile, outDir, sourcePath, conn, analysisResults);
 };

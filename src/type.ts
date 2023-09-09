@@ -1,4 +1,4 @@
-import { MobilettoConnection } from "mobiletto-base";
+import { MobilettoConnection, MobilettoLogger } from "mobiletto-base";
 import { MobilettoOrmTypeDef } from "mobiletto-orm-typedef";
 import { MediaProfileType, MediaType, ProfileJobType } from "yuebing-model";
 import { MediaOperationType } from "./type/MediaOperationType.js";
@@ -20,6 +20,7 @@ export type ParsedProfile = MediaProfileType & {
 };
 
 export type MediaOperationFunc = (
+    logger: MobilettoLogger,
     downloaded: string,
     profile: ParsedProfile,
     outDir: string,
