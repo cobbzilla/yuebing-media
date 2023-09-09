@@ -1,4 +1,5 @@
 import { spawn } from "child_process";
+import { MobilettoLogger } from "mobiletto-base";
 
 export type SpawnResult = {
     stdout: string;
@@ -6,9 +7,22 @@ export type SpawnResult = {
     exitCode: number | null;
 };
 
-export const runExternalCommand = async (command: string, args: string[]): Promise<SpawnResult> => {
+export const quoteArgs = (args: string[]) => {
+    return args.map((a) => (a.includes(" ") ? `"${a.replace('"', '\\""')}"` : a)).join(" ");
+};
+
+export const runExternalCommand = async (
+    command: string,
+    args: string[],
+    logger: MobilettoLogger,
+): Promise<SpawnResult> => {
     return new Promise((resolve, reject) => {
         if (typeof args === "string") args = [args];
+
+        const spawnLine = `spawn=${command} ${quoteArgs(args)}`;
+        const infoEnabled = logger && logger.isInfoEnabled();
+        if (infoEnabled) logger.info(`runExternalCommand START ${spawnLine}`);
+
         const process = spawn(command, args);
 
         let stdout = "";
@@ -23,6 +37,7 @@ export const runExternalCommand = async (command: string, args: string[]): Promi
         });
 
         process.on("close", (code) => {
+            if (infoEnabled) logger.info(`runExternalCommand EXIT=${code} ${spawnLine}`);
             resolve({
                 stdout: stdout.toString(),
                 stderr: stderr.toString(),
@@ -31,6 +46,7 @@ export const runExternalCommand = async (command: string, args: string[]): Promi
         });
 
         process.on("error", (err) => {
+            if (infoEnabled) logger.info(`runExternalCommand ERROR=${err} ${spawnLine}`);
             reject(err);
         });
     });
