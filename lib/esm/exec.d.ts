@@ -5,4 +5,4 @@ export type SpawnResult = {
     exitCode: number | null;
 };
 export declare const quoteArgs: (args: string[]) => string;
-export declare const runExternalCommand: (command: string, args: string[], logger: MobilettoLogger) => Promise<SpawnResult>;
+export declare const runExternalCommand: (logger: MobilettoLogger, command: string, args: string[]) => Promise<SpawnResult>;

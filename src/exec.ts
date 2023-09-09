@@ -12,9 +12,9 @@ export const quoteArgs = (args: string[]) => {
 };
 
 export const runExternalCommand = async (
+    logger: MobilettoLogger,
     command: string,
     args: string[],
-    logger: MobilettoLogger,
 ): Promise<SpawnResult> => {
     return new Promise((resolve, reject) => {
         if (typeof args === "string") args = [args];
