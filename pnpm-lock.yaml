@@ -36,14 +36,14 @@ devDependencies:
     specifier: ^2.1.1
     version: 2.1.1
   mobiletto-orm:
-    specifier: ^2.2.46
-    version: 2.2.46
+    specifier: ^2.2.53
+    version: 2.2.53
   mobiletto-orm-typedef:
-    specifier: ^2.4.10
-    version: 2.4.10
+    specifier: ^2.4.16
+    version: 2.4.16
   mobiletto-orm-typedef-gen:
-    specifier: ^2.3.47
-    version: 2.3.47
+    specifier: ^2.4.11
+    version: 2.4.11
   mocha:
     specifier: ^10.2.0
     version: 10.2.0
@@ -57,11 +57,11 @@ devDependencies:
     specifier: ^5.1.6
     version: 5.1.6
   yuebing-model:
-    specifier: ^2.7.33
-    version: 2.7.33
+    specifier: ^2.7.63
+    version: 2.7.63
   zilla-util:
-    specifier: ^1.0.1
-    version: 1.0.1
+    specifier: ^1.0.10
+    version: 1.0.10
 
 packages:
 
@@ -459,7 +459,7 @@ packages:
       node-abort-controller: 3.1.1
       semver: 7.5.4
       tslib: 2.6.2
-      uuid: 9.0.0
+      uuid: 9.0.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1178,19 +1178,19 @@ packages:
       consola: 3.2.3
     dev: true
 
-  /mobiletto-orm-typedef-gen@2.3.47:
-    resolution: {integrity: sha512-Nj23M6OP8HgZR8dikgAibvK6g+Sfw166XqKYb8Q4x7ge/SVp2yyJdNbE86JscZv1OZN9Rhals6uIREkoNZfC2A==}
+  /mobiletto-orm-typedef-gen@2.4.11:
+    resolution: {integrity: sha512-0UCOaUBNmE5/yh5ALd9iaLnR6EnltyEVNrtY2KGmuQJ29j9WYnAukUyGAXHVgpGZUXd18N0cPmaHHNqJ/2ERcQ==}
     dev: true
 
-  /mobiletto-orm-typedef@2.4.10:
-    resolution: {integrity: sha512-udFgR+b7ePxexrWRhn4dA8svRdbyzslxq4ri7VvtufXgKs8gMYIA8ysJ4qgK780qB3XkOcqOK3hHLj2Zz14K5A==}
+  /mobiletto-orm-typedef@2.4.16:
+    resolution: {integrity: sha512-yBaYtaQpNCO9aY8t56+QVlTBtcFDaf9L3/4bGTyus2dsLUEe9iv9Ahs3KpOa6saRhDxmo5pOylBTBwqu5YaU+A==}
     dependencies:
       shasum: 1.0.2
-      uuid: 9.0.0
+      uuid: 9.0.1
     dev: true
 
-  /mobiletto-orm@2.2.46:
-    resolution: {integrity: sha512-DbyQkg7ccjjrgAoNybd0AoRDUDZvm4kSpezjndpYi1cmfgg2TvOtYBK1tEyUo5umhw0IGVhw6v6n6U5dL79Ajw==}
+  /mobiletto-orm@2.2.53:
+    resolution: {integrity: sha512-jXnwPGwWiK7EIzAQtcYiVSFS4La2gh8V9V1WvmfT+Jpp3qEkWjnUUwBHwvLNbPq9sFuktI80wA6rK42/durwuA==}
     dev: true
 
   /mocha@10.2.0:
@@ -1604,8 +1604,8 @@ packages:
       punycode: 2.3.0
     dev: true
 
-  /uuid@9.0.0:
-    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+  /uuid@9.0.1:
+    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
     dev: true
 
@@ -1685,10 +1685,10 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /yuebing-model@2.7.33:
-    resolution: {integrity: sha512-OycWHXbndMZPdt0rDQReSnkOqwLkcUTXAnDX6wLXXjaqV4lBT1s3CZyLELRLXlm2lDWoSjaS2J1iPVtrT4zX5w==}
+  /yuebing-model@2.7.63:
+    resolution: {integrity: sha512-JuBu5EQqk227JPYettN8KAtS7qIsLFgxIUC7D0edZVV0UNendD7ZTWVQ8Hggsr4gCLmCH85iLueoJx2ECr6xbw==}
     dev: true
 
-  /zilla-util@1.0.1:
-    resolution: {integrity: sha512-BMCVSUERMZeez+ncDNbvlEMyD/g43+IYmHedxu0TnJTTuhjqLrU+7DW/rmzX9v/pf1ITUjflpvWvStEQC4lp+Q==}
+  /zilla-util@1.0.10:
+    resolution: {integrity: sha512-azYGaxQSRYEOi1yjhCcxBOWuQJqd/0wBJ+QNAX0SwWjYu3Ckyw2K0OvSgdWFHFdILKI7e9PvRECT6u4nDeEsHw==}
     dev: true
