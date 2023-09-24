@@ -1,6 +1,6 @@
 {
   "name": "yuebing-media",
-  "version": "1.1.47",
+  "version": "1.1.48",
   "type": "module",
   "description": "Media processing framework for yuebing",
   "keywords": [
@@ -46,14 +46,14 @@
     "eslint-config-prettier": "^8.8.0",
     "handlebars": "^4.7.8",
     "mobiletto-base": "^2.1.1",
-    "mobiletto-orm": "^2.2.53",
-    "mobiletto-orm-typedef": "^2.4.16",
-    "mobiletto-orm-typedef-gen": "^2.4.11",
+    "mobiletto-orm": "^2.2.56",
+    "mobiletto-orm-typedef": "^2.4.19",
+    "mobiletto-orm-typedef-gen": "^2.4.13",
     "mocha": "^10.2.0",
     "prettier": "^3.0.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^5.1.6",
-    "yuebing-model": "^2.7.63",
-    "zilla-util": "^1.0.10"
+    "yuebing-model": "^2.7.68",
+    "zilla-util": "^1.0.13"
   }
 }
